@@ -1,0 +1,25 @@
+from flask import Flask,request,jsonify
+from twilio.rest import Client
+
+app = Flask(__name__)
+@app.route( "/api" )
+def msg(sms='hi fellows'):
+    account_sid = 'ACda749be553ad27190392c9abe9a2c963'  
+    auth_token = '37c30e26397ad60bee8020338a3ae43f'
+    client = Client(account_sid, auth_token)
+    message = client.messages \
+    .create(
+         body=sms,
+         from_='+12057231401',
+         to='+917032052374'
+     )
+    content=request.get_json()
+    print(content)
+    return 'Json Posted'
+#def sms():
+#   d={}
+#    d['Query']=str(request.args['Query'])
+#    return jsonify(d)
+
+if __name__=="__main__":
+    app.run(host='192.168.1.5',port ='5000',debug=True)
